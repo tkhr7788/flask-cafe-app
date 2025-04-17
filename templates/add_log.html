@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>入出庫登録</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>入出庫を登録</h1>
+
+        <form method="post">
+            <label for="item_id">材料:</label>
+            <select name="item_id" required>
+                {% for item in items %}
+                <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="change">数量（マイナスで出庫）:</label>
+            <input type="number" name="change" required>
+
+            <label for="note">備考（任意）:</label>
+            <input type="text" name="note">
+
+            <button type="submit">登録</button>
+        </form>
+
+        <p><a href="{{ url_for('list_logs') }}">→ 履歴一覧へ</a></p>
+    </div>
+</body>
+</html>

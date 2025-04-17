@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>入出庫履歴</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>入出庫履歴一覧</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>日時</th>
+                    <th>材料</th>
+                    <th>数量</th>
+                    <th>備考</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log['timestamp'] }}</td>
+                    <td>{{ log['item_name'] }}</td>
+                    <td>{{ log['change'] }}</td>
+                    <td>{{ log['note'] or '' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><a href="{{ url_for('add_log') }}">→ 入出庫を追加する</a></p>
+        <p><a href="{{ url_for('list_items') }}">→ 材料一覧へ</a></p>
+    </div>
+</body>
+</html>

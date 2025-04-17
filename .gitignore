@@ -1,0 +1,6 @@
+# SQLite DB を無視
+*.db
+*.db-journal
+
+# EndNoteなどの自動保存ファイルを無視したい場合
+*.tmp
