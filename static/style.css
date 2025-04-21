@@ -31,42 +31,6 @@ form input, select {
     border: 1px solid #ccc;
 }
 
-button {
-    margin-top: 1.5em;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-}
-
-/* 削除ボタン（青） */
-form button {
-    background-color: #007bff;
-    color: white;
-}
-
-form button:hover {
-    background-color: #0056b3;
-}
-
-/* 編集ボタン（緑） */
-.edit-button {
-    display: inline-block;
-    background-color: #28a745;
-    color: white;
-    padding: 0.5em 1em;
-    margin-right: 0.5em;
-    border: none;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.95em;
-}
-
-.edit-button:hover {
-    background-color: #218838;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -95,4 +59,49 @@ th {
 
 .flashes li.error {
     color: red;
+}
+
+/* 共通ボタンスタイル */
+.action-button {
+    display: inline-block;
+    padding: 0.5em 1.2em;
+    font-size: 0.95em;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    margin-right: 0.5em;
+}
+
+/* 編集ボタン（緑） */
+.edit-button {
+    background-color: #28a745;
+}
+
+.edit-button:hover {
+    background-color: #218838;
+}
+
+/* 削除ボタン（青） */
+.delete-button {
+    background-color: #007bff;
+}
+
+.delete-button:hover {
+    background-color: #0056b3;
+}
+.secondary-button {
+    background-color: #6c757d;  /* グレー系 */
+}
+
+.secondary-button:hover {
+    background-color: #5a6268;
+}
+.secondary-button {
+    background-color: #6c757d;
+}
+
+.secondary-button:hover {
+    background-color: #5a6268;
 }

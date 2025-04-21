@@ -2,31 +2,66 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>入出庫登録</title>
+    <title>入出庫を登録</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .form-group {
+            margin-bottom: 1.5em;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 0.25em;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>入出庫を登録</h1>
+        <h1>入出庫を登録する</h1>
+        <p>在庫に増減があった材料を登録します。マイナス値を入力すると「出庫」として処理されます。</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
 
         <form method="post">
-            <label for="item_id">材料:</label>
-            <select name="item_id" required>
-                {% for item in items %}
-                <option value="{{ item['id'] }}">{{ item['name'] }}</option>
-                {% endfor %}
-            </select>
+            <div class="form-group">
+                <label for="item_id" class="form-label">対象の材料:</label>
+                <select name="item_id" id="item_id" required>
+                    {% for item in items %}
+                    <option value="{{ item['id'] }}">{{ item['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-            <label for="change">数量（マイナスで出庫）:</label>
-            <input type="number" name="change" required>
+            <div class="form-group">
+                <label for="change" class="form-label">数量:</label>
+                <input type="number" name="change" id="change" placeholder="例：+10（入庫）、-5（出庫）" required>
+            </div>
 
-            <label for="note">備考（任意）:</label>
-            <input type="text" name="note">
+            <div class="form-group">
+                <label for="note" class="form-label">備考（任意）:</label>
+                <input type="text" name="note" id="note" placeholder="例：仕入れ、廃棄、消費など">
+            </div>
 
-            <button type="submit">登録</button>
+            <div style="text-align: right;">
+                <button type="submit" class="action-button edit-button">登録する</button>
+                <p class="form-hint" style="margin-top: 0.5em;">登録後は履歴で確認できます。</p>
+            </div>
         </form>
 
-        <p><a href="{{ url_for('list_logs') }}">→ 履歴一覧へ</a></p>
+        <div style="margin-top: 2em;">
+            <a href="{{ url_for('list_logs') }}" class="action-button secondary-button">← 入出庫履歴に戻る</a>
+        </div>
     </div>
 </body>
 </html>

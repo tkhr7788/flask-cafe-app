@@ -4,22 +4,55 @@
     <meta charset="UTF-8">
     <title>材料を編集</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .form-group {
+            margin-bottom: 1.5em;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 0.25em;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>材料を編集</h1>
+        <h1>材料「{{ item['name'] }}」の情報を編集</h1>
+        <p>このページでは登録済みの材料名や初期在庫数を修正できます。</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
 
         <form method="post">
-            <label for="name">材料名:</label>
-            <input type="text" id="name" name="name" value="{{ item['name'] }}" required>
+            <div class="form-group">
+                <label for="name" class="form-label">材料名:</label>
+                <input type="text" id="name" name="name" value="{{ item['name'] }}" required>
+            </div>
 
-            <label for="initial_stock">初期在庫数:</label>
-            <input type="number" id="initial_stock" name="initial_stock" value="{{ item['initial_stock'] }}" required>
+            <div class="form-group">
+                <label for="initial_stock" class="form-label">初期在庫数:</label>
+                <input type="number" id="initial_stock" name="initial_stock" value="{{ item['initial_stock'] }}" min="0" required>
+            </div>
 
-            <button type="submit">更新する</button>
+            <div style="text-align: right;">
+                <button type="submit" class="action-button edit-button">更新する</button>
+                <p class="form-hint">変更内容を確認してから「更新する」を押してください。</p>
+            </div>
         </form>
 
-        <p><a href="{{ url_for('list_items') }}">← 一覧に戻る</a></p>
+        <div style="margin-top: 2em;">
+            <a href="{{ url_for('list_items') }}" class="action-button secondary-button">← 材料一覧に戻る</a>
+        </div>
     </div>
 </body>
 </html>
